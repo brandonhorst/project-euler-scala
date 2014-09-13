@@ -1,13 +1,9 @@
-def isPrime(num: Int) = {
-  if (num < 2) false
-  else Stream.range(2, math.sqrt(num.toDouble).toInt + 1).forall(num % _ != 0)
+def isDualPalendromic(num: Long) = {
+  val b10string = num.toString
+  val b2string = java.lang.Long.toString(num, 2)
+  b10string.reverse == b10string && b2string.reverse == b2string
 }
 
-def isTruncatablePrime(num: Int) = {
-  num.toString.scanLeft("")((a, s) => a + s).tail.map(_.toInt).forall(isPrime) &&
-  num.toString.scanRight("")((a, s) => a + s).tail.init.map(_.toInt).forall(isPrime)
-}
-
-val results = (10 to 1000000).filter(isTruncatablePrime).sum
+val results = (1L until 1000000L).filter(isDualPalendromic).sum
 
 println(results)
